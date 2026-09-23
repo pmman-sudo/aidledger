@@ -1,0 +1,47 @@
+node_modules/
+artifacts/
+cache/
+deployments/
+reports/
+.env
+.env.*
+!.env.example
+*.log
+
+backups/
+
+frontend/.next/
+
+frontend/node_modules/
+cloud/node_modules/
+!.env.*.example
+!cloud/.env.example
+!frontend/.env.cloud.example
+
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Local environment files and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# Local backups, deployment data, and journals
+backups/
+deployments/
+reports/
+data/
+.local/
+
+# Keep the cloud contract artifact available for deployment
+!artifacts/
+!artifacts/AidLedgerCloud.json

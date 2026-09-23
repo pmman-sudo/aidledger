@@ -1,0 +1,12 @@
+{
+  "schema": "aidledger.campaign.v1",
+  "fictional": true,
+  "title": "Demo community supplies",
+  "location": "Fictional community",
+  "description": "A local educational scenario. No real beneficiaries, payments, or medical data.",
+  "milestones": [
+    { "title": "Purchase supplies", "localEthBudget": "1" },
+    { "title": "Deliver supplies", "localEthBudget": "2" },
+    { "title": "Confirm handover", "localEthBudget": "3" }
+  ]
+}

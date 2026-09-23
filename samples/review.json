@@ -1,0 +1,7 @@
+{
+  "schema": "aidledger.review.v1",
+  "fictional": true,
+  "decision": "approve",
+  "checks": ["Sample quantities match the fictional plan", "Sample budget equals the first milestone amount"],
+  "note": "Educational approval of fictional evidence only."
+}

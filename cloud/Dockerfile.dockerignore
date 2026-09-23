@@ -1,0 +1,5 @@
+**/node_modules
+frontend/.next
+backups
+deployments/ui-journal.json
+**/.env*

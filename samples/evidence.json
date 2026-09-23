@@ -1,0 +1,9 @@
+{
+  "schema": "aidledger.evidence.v1",
+  "fictional": true,
+  "milestone": "Purchase supplies",
+  "summary": "Ten fictional supply kits were purchased and counted.",
+  "items": [{ "description": "Sample supply kit", "quantity": 10 }],
+  "budget": { "unit": "localETH", "amount": "1" },
+  "note": "This is sample evidence for a local programming exercise. It does not prove a real delivery."
+}

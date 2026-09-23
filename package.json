@@ -1,0 +1,26 @@
+{
+  "name": "aidledger-local-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-only educational milestone escrow for AidLedger",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "scripts": {
+    "compile": "node scripts/compile.mjs",
+    "test": "npm run compile && node --test --test-concurrency=1 test/*.test.mjs",
+    "demo": "npm run compile && node scripts/demo.mjs",
+    "node": "hardhat node --network aidledger --hostname 127.0.0.1",
+    "deploy:local": "npm run compile && node scripts/deploy-local.mjs",
+    "inspect:local": "node scripts/inspect-local.mjs",
+    "app:local": "node scripts/run-local-app.mjs",
+    "test:integration": "npm run compile && node --test --test-concurrency=1 test/local-integration.test.mjs",
+    "deploy:amoy": "npm run compile && node scripts/deploy-amoy.mjs"
+  },
+  "devDependencies": {
+    "ethers": "6.17.0",
+    "hardhat": "3.17.0",
+    "solc": "0.8.37"
+  }
+}
