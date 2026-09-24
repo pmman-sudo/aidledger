@@ -13,7 +13,7 @@ try {
     throw new Error('SETUP: RPC URL and deployer key are required.');
   }
 
-  for (const file of ['deployments/amoy.json', 'deployments/amoy-pending.json']) {
+  for (const file of ['deployments/amoy.json', 'deployments/amoy-retry.json']) {
     try {
       await fs.access(file);
     } catch (error) {
@@ -33,6 +33,29 @@ try {
 
   if (wallet.address.toLowerCase() !== '0x75991e9a42d1966b4ba13fcc0e85bf4e03cc23a7') {
     throw new Error('SETUP: This key does not match your funded wallet ending C23A7.');
+  }
+
+  const original = JSON.parse(
+    await fs.readFile('deployments/amoy-pending.json', 'utf8')
+  );
+  const expectedAddress = getCreateAddress({ from: wallet.address, nonce: 0 });
+
+  if (
+    original.chainId !== 80002 ||
+    original.deployer.toLowerCase() !== wallet.address.toLowerCase() ||
+    original.contractAddress.toLowerCase() !== expectedAddress.toLowerCase()
+  ) {
+    throw new Error('SETUP: Original deployment does not match transaction number 0.');
+  }
+
+  const confirmedCount = await provider.getTransactionCount(wallet.address, 'latest');
+  const pendingCount = await provider.getTransactionCount(wallet.address, 'pending');
+
+  if (confirmedCount !== 0 || pendingCount !== 0) {
+    throw new Error('SETUP: Wallet transaction count changed. Check the original transaction.');
+  }
+  if (await provider.getCode(expectedAddress) !== '0x') {
+    throw new Error('SETUP: Contract already exists. Recover the deployment instead.');
   }
 
   const artifact = JSON.parse(
@@ -64,6 +87,7 @@ try {
 
   const populated = await wallet.populateTransaction({
     ...request,
+    nonce: 0,
     chainId: 80002,
     type: 2,
     gasLimit,
@@ -86,7 +110,7 @@ try {
 
   await fs.mkdir('deployments', { recursive: true });
   await fs.writeFile(
-    'deployments/amoy-pending.json',
+    'deployments/amoy-retry.json',
     JSON.stringify(record, null, 2) + '\n',
     { flag: 'wx' }
   );
