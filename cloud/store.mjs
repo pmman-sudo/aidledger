@@ -4,7 +4,7 @@ import pg from 'pg';
 export class PostgresStore {
   constructor(connectionString) {
     this.pool = new pg.Pool({ connectionString, max: 5, idleTimeoutMillis: 20_000,
-      ssl: /sslmode=(require|verify)/.test(connectionString) ? { rejectUnauthorized: false } : undefined });
+      ssl: /sslmode=(require|verify)/.test(connectionString) ? { rejectUnauthorized: true } : undefined });
   }
   async init() {
     await this.pool.query(await fs.readFile(new URL('./schema.sql', import.meta.url), 'utf8'));
